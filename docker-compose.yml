@@ -1,0 +1,30 @@
+version: "3.6"
+services:
+  db:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: always
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    expose:
+      - 5432
+
+  phoenix:
+    image: my_app:build
+    build:
+      context: .
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/my_app_dev
+    volumes:
+      - /my_app/_build
+      - /my_app/deps
+      - /my_app/node_modules
+      - .:/my_app/
+    expose:
+      - 4000
+    ports:
+      - 4000:4000
+    depends_on:
+      - db

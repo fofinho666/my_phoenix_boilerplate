@@ -1,0 +1,6 @@
+_build/
+.vscode/
+deps/
+tmp/
+.gitignore
+README*
