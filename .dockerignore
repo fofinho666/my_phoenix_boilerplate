@@ -1,5 +1,6 @@
 _build/
 .vscode/
+assets/node_modules/
 deps/
 tmp/
 .gitignore

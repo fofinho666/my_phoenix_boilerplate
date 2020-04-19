@@ -4,12 +4,12 @@ FROM bitwalker/alpine-elixir-phoenix:1.9.4
 RUN apk update && apk add postgresql-client && rm -rf /var/cache/apk/*
 
 COPY . /my_app
-
-# Get dependencies and compile project
-
 WORKDIR /my_app
-RUN mix deps.get
-RUN ["/bin/bash", "-c", "cd assets && npm install && node node_modules/webpack/bin/webpack.js --mode development"]
+# Get dependencies and compile the project
+RUN ["/bin/bash", "-c", "chmod +x entrypoint.sh \
+ && mix deps.get \
+ && cd assets \
+ && npm install \
+ && node node_modules/webpack/bin/webpack.js --mode development"]
 
-RUN chmod +x entrypoint.sh
 CMD ["./entrypoint.sh"]

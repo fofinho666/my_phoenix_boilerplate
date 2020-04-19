@@ -20,7 +20,7 @@ services:
     volumes:
       - /my_app/_build
       - /my_app/deps
-      - /my_app/node_modules
+      - /my_app/assets/node_modules
       - .:/my_app/
     expose:
       - 4000
